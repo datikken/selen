@@ -1,13 +1,19 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 import time
 import unittest
 
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        mobile_emulation = {
+            "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
+            "userAgent": "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19"}
+        chrome_options = Options()
+        chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+        self.browser = webdriver.Chrome(chrome_options=chrome_options)
 
     def tearDown(self):
         self.browser.quit()
@@ -28,9 +34,20 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows),
-            "New to-do item did not appear in table"
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+
+        inputbox = self.browser.find_element(By.ID,'id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        # The page updates again, and now shows both items on her list
+        table = self.browser.find_element(By.ID,'id_list_table')
+        rows = table.find_elements(By.TAG_NAME, 'tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn(
+            '2: Use peacock feathers to make a fly',
+            [row.text for row in rows]
         )
 
         self.fail('Finish the test!')
