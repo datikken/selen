@@ -3,14 +3,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
-from django.test import LiveServerTestCase
 import time
 import unittest
 
-
 MAX_WAIT = 10
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         mobile_emulation = {
             "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},

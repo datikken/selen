@@ -1,3 +1,5 @@
+https://github.com/hjwp/book-example
+
 Running the Django dev server:<br/>
 ```python manage.py runserver```
 
