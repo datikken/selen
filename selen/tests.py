@@ -3,8 +3,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
-
 import time, unittest
+
 
 MAX_WAIT = 10
 
@@ -60,7 +60,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-        self.fail('Finish the test!')
+        # self.fail('Finish the test!')
+
+    def test_can_start_a_list_for_one_user(self):
+        self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
 
 if __name__ == '__main__':
