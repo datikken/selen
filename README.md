@@ -14,6 +14,8 @@ https://learning.oreilly.com/library/view/test-driven-development-with/978149195
 Tests:</br>
 ```python manage.py test```
 
+```python manage.py test tests--functional.test_list_item_validation```
+
 Migrations<br/>
 ```docker exec -it selen_web_1 python manage.py makemigrations```<br/>
 
