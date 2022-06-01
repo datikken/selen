@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
+from unittest import skip
 import time, unittest, os
 
 
@@ -64,6 +65,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
+    @skip
     def test_cannot_add_empty_list_items(self):
         # Edith goes to the home page and accidentally tries to submit
         # an empty list item. She hits Enter on the empty input box
